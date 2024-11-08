@@ -42,25 +42,23 @@ export const MovieDetail = () => {
 
     const deleteBookmark = async () => {
         try {
-            await fetch("http://localhost:3000/movies/bookmarkMovie", {
+            await fetch(`http://localhost:4000/movies/deletebookmark/${movie.id}`, {
                 method: "DELETE",
-                headers:{
+                headers: {
                     "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ id: movie.id })
-            })
+                }
+            });
         } catch (e) {
-            console.error(e.message)
+            console.error(e.message);
         }
-    }
+    };
 
     const handleBookmarkClick = () => {
         setBookmark(!bookmark);
-        console.log("Bookmarking movie with ID:", id);
+
         if (!bookmark){
             saveBookmark();
-        }
-        else if (bookmark) {
+        } else {
             deleteBookmark();
         }
     }
@@ -71,7 +69,10 @@ export const MovieDetail = () => {
                 setLoading(true);
                 const response = await axios.get(MOVIE_DETAIL_URL);
                 setMovie(response.data.movie);
-                console.log(response.data.movie);
+
+                const bookmarkResponse = await fetch(`http://localhost:4000/movies/isbookmarked/${id}`);
+                const bookmarkData = await bookmarkResponse.json();
+                setBookmark(bookmarkData.isBookmarked);
             } catch (error) {
                 console.error("Error fetching movie details:", error);
                 setError(true);

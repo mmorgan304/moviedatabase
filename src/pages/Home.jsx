@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import {Container} from "react-bootstrap";
 import MovieCarousel from "../components/MovieCarousel.jsx";
@@ -7,11 +7,10 @@ import MovieCarousel from "../components/MovieCarousel.jsx";
 // make search work
 // add "see more" to movie carousels
 // make genres clickable to search for more of that genre
-// add bookmark and thumbs up/down functionality
 
 function Home() {
     const [searchResults, setSearchResults] = useState([])
-    const SEARCH_URL = "http://localhost:4000/movies/search";
+    const SEARCH_URL = "http://localhost:4000/movies/searchresults";
     const [filterType, setFilterType] = useState('ascending');
 
     return (
